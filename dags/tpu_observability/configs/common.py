@@ -2,6 +2,7 @@ from dataclasses import dataclass
 import enum
 
 from dags.common.vm_resource import MachineVersion, TpuVersion
+from xlml.apis import gcs
 
 
 @dataclass(frozen=True)
@@ -28,3 +29,7 @@ GCS_CONFIG_PATH = (
 GCS_JOBSET_CONFIG_PATH = (
     "gs://ml-auto-solutions-dag-configs/tpu_observability/jobset_config.yaml"
 )
+
+# Intentional GCS access at parse time to demonstrate CI failure
+_DEMO_CONFIG = gcs.load_yaml_from_gcs(GCS_CONFIG_PATH)
+print(_DEMO_CONFIG)
